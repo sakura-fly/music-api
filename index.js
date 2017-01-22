@@ -2,7 +2,6 @@ const rp = require('request-promise')
 
 const baseUrl = 'http://music.163.com'
 
-
 const request = (options) => {
     Object.assign(options, {
         headers: {
@@ -15,7 +14,7 @@ const request = (options) => {
 
 const api = new class {
     // 搜索
-    async search(s = null, {limit = 10, type = 1, offset = 0} = {}) {
+    search(s = null, {limit = 10, type = 1, offset = 0} = {}) {
         const uri = 'http://s.music.163.com/api/search/get/'
         const options = {
             uri,
@@ -24,14 +23,15 @@ const api = new class {
         return request(options)
     }
 
-    async playlist(id) {
+    // 播放列表
+    playlist(id) {
         const uri = `${baseUrl}/api/playlist/detail?id=${id}`
         const options = { uri }
         return request(options)
     }
 
     // 歌曲详情
-    async play(id) {
+    play(id) {
         const uri = `${baseUrl}/api/song/detail`
         const options = {
             uri,
@@ -41,7 +41,7 @@ const api = new class {
     }
 
     // 获取歌手专辑列表
-    async getArtistAlbums(artistId = null, {limit = 10, offset = 0}) {
+    getArtistAlbums(artistId = null, {limit = 10, offset = 0}) {
         const uri = `${baseUrl}/api/artist/albums/${artistId}`
         const options = {
             uri,
@@ -51,7 +51,7 @@ const api = new class {
     }
 
     // 获取专辑音乐列表
-    async getAlbum(albumId = null) {
+    getAlbum(albumId = null) {
         const uri = `${baseUrl}/api/album/${albumId}`
         const options = { uri }
         return request(options)
