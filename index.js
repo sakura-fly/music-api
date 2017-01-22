@@ -13,25 +13,40 @@ const request = (options) => {
 }
 
 const api = new class {
-    // 搜索
+
+    /**
+     * 搜索
+     * @param   {string}    s       搜索关键字
+     * @param   {json}      params  其他参数
+     * @returns {json}
+     */
     search(s = null, {limit = 10, type = 1, offset = 0} = {}) {
-        const uri = 'http://s.music.163.com/api/search/get/'
+        const uri = `${baseUrl}/api/search/get/`
         const options = {
+            method: 'POST',
             uri,
-            qs: { s, limit, type, offset }
+            form: { s, limit, type, offset }
         }
         return request(options)
     }
 
-    // 播放列表
-    playlist(id) {
+    /**
+     * 播放列表
+     * @param   {string}    id      列表id
+     * @returns {json}
+     */
+    playlist(id = null) {
         const uri = `${baseUrl}/api/playlist/detail?id=${id}`
         const options = { uri }
         return request(options)
     }
 
-    // 歌曲详情
-    play(id) {
+    /**
+     * 歌曲详情
+     * @param   {string}    id      歌曲id
+     * @returns {json}
+     */
+    play(id = null) {
         const uri = `${baseUrl}/api/song/detail`
         const options = {
             uri,
@@ -40,8 +55,12 @@ const api = new class {
         return request(options)
     }
 
-    // 获取歌手专辑列表
-    getArtistAlbums(artistId = null, {limit = 10, offset = 0}) {
+    /**
+     * 获取歌手专辑列表
+     * @param   {string}    artistId 歌手id
+     * @returns {json}
+     */
+    getArtistAlbums(artistId = null, {limit = 10, offset = 0} = {}) {
         const uri = `${baseUrl}/api/artist/albums/${artistId}`
         const options = {
             uri,
@@ -50,7 +69,11 @@ const api = new class {
         return request(options)
     }
 
-    // 获取专辑音乐列表
+    /**
+     * 获取专辑音乐列表
+     * @param   {string}    alibumId 专辑id
+     * @returns {json}
+     */
     getAlbum(albumId = null) {
         const uri = `${baseUrl}/api/album/${albumId}`
         const options = { uri }
